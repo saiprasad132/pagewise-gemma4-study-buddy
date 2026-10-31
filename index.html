@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f2">
+  <title>Pagewise — Learn from any page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--paper:#f7f7f2;--ink:#20251f;--muted:#747970;--line:#dedfd6;--green:#c9f36b;--deep:#294532;--card:#fffef9;--orange:#ffbd75}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh}
+    button,input,textarea,select{font:inherit}button{cursor:pointer}a{color:inherit}
+    .top{height:70px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5vw,76px)}
+    .brand{display:flex;align-items:center;gap:11px;font:800 20px Manrope,sans-serif;letter-spacing:-.7px}.brand-icon{height:32px;width:32px;border-radius:10px;background:var(--green);display:grid;place-items:center;font-size:18px}
+    .top-note{font:12px 'DM Mono',monospace;color:var(--muted);display:flex;align-items:center;gap:8px}.dot{width:7px;height:7px;border-radius:50%;background:#76a651}
+    main{max-width:1190px;margin:0 auto;padding:56px 28px 70px}.eyebrow{font:500 11px 'DM Mono',monospace;letter-spacing:1.4px;color:#64745d;text-transform:uppercase;display:flex;gap:10px;align-items:center}.eyebrow:before{content:'';height:1px;width:25px;background:#90a679}
+    h1{font:700 clamp(38px,5vw,62px)/1.04 Manrope,sans-serif;letter-spacing:-3px;margin:17px 0 14px;max-width:680px}h1 em{font-style:normal;color:#59764c}.lede{color:#666c63;font-size:16px;line-height:1.65;max-width:620px;margin:0}
+    .layout{display:grid;grid-template-columns: minmax(0,1.07fr) minmax(340px,.93fr);gap:24px;margin-top:37px;align-items:stretch}
+    .panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:25px;box-shadow:0 5px 16px #26302008}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:21px}.panel h2{font:700 16px Manrope,sans-serif;letter-spacing:-.3px;margin:0}.step{font:11px 'DM Mono',monospace;color:#858a81}.panel-tools{display:flex;align-items:center;gap:13px}.reset{border:1px solid var(--line);background:transparent;color:#53614e;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:600}.reset:hover:not(:disabled){background:#f0f5e8;border-color:#c6d2b7}.reset:disabled{opacity:.45;cursor:default}
+    .drop{height:245px;border:1.5px dashed #c9cdc0;border-radius:13px;background:#fbfcf6;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;transition:.2s}.drop.over{border-color:#739654;background:#f2f8e8}.drop input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;z-index:2}.drop-content{padding:20px}.upload-icon{width:47px;height:47px;border-radius:15px;background:#eaf4d7;display:grid;place-items:center;margin:0 auto 13px;color:#4b6d38}.drop strong{display:block;font:600 14px Manrope,sans-serif}.drop p{font-size:12px;color:var(--muted);margin:7px 0 0}.drop p span{color:#405d34;text-decoration:underline;text-underline-offset:3px}.preview{position:absolute;inset:0;background:#eef0e8;display:none}.preview img{width:100%;height:100%;object-fit:contain}.preview.show{display:block}.preview.pdf img{display:none}.pdf-preview{display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:9px;color:#405d34;text-align:center;padding:20px}.preview.pdf .pdf-preview{display:flex}.pdf-icon{width:58px;height:68px;border-radius:10px;background:#e5efd6;display:grid;place-items:center;font:700 14px 'DM Mono',monospace}.pdf-preview strong{font:600 14px Manrope,sans-serif;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pdf-preview span{font-size:11px;color:#747970}.file-pill{position:absolute;z-index:3;bottom:10px;left:10px;background:#fffef0eF;border:1px solid var(--line);border-radius:9px;padding:7px 10px;font:10px 'DM Mono',monospace;max-width:calc(100% - 20px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .controls{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}.label{font:11px 'DM Mono',monospace;color:#70766c;display:block;margin:0 0 8px}.segmented{display:flex;border:1px solid var(--line);background:#f6f6ef;padding:4px;border-radius:11px;gap:3px}.segmented button{border:0;background:transparent;color:#747970;border-radius:8px;padding:9px 8px;flex:1;font-size:12px;font-weight:600}.segmented button.active{background:#fff;box-shadow:0 1px 4px #1f2d1915;color:var(--ink)}select,input[type=text],input[type=password],textarea{width:100%;border:1px solid var(--line);border-radius:10px;background:#fffefb;padding:11px 12px;color:var(--ink);outline:none}select:focus,input:focus,textarea:focus{border-color:#9bb77d;box-shadow:0 0 0 3px #c9f36b44}
+    .question{margin-top:18px}.question textarea{height:70px;resize:vertical;font-size:13px}.keyrow{display:flex;gap:8px;margin-top:14px}.keyrow input{font:12px 'DM Mono',monospace}.keyrow a{font-size:11px;color:#607d4e;align-self:center;white-space:nowrap}
+    .go{display:flex;align-items:center;justify-content:space-between;border:0;border-radius:11px;background:var(--green);color:#20301d;width:100%;margin-top:17px;padding:15px 17px;font:700 13px Manrope,sans-serif;transition:.18s}.go:hover{background:#b9e656;transform:translateY(-1px)}.go:disabled{opacity:.6;cursor:wait;transform:none}.arrow{font-size:19px}
+    .privacy{font-size:10px;color:#8a8e83;line-height:1.5;margin:11px 0 0;text-align:center}
+    .result-panel{background:#263a2c;border-color:#263a2c;color:#f8f6ec;position:relative;min-height:475px;overflow:hidden}.result-panel:after{content:'✳';position:absolute;right:-10px;top:-36px;font-size:170px;color:#ffffff08;pointer-events:none}.result-head{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}.result-head h2{color:#f7f7ef}.gemma-tag{font:10px 'DM Mono',monospace;color:#d7f5a6;border:1px solid #607350;border-radius:20px;padding:7px 10px}.result-body{position:relative;z-index:1;margin-top:22px;color:#e6e9dc;font-size:14px;line-height:1.75}.empty{min-height:367px;display:flex;align-items:center;justify-content:center;text-align:center;color:#aab3a3}.empty-art{font-size:40px;margin-bottom:12px}.empty p{font-size:12px;max-width:225px;margin:0 auto;line-height:1.7}.result-body h3{font:700 13px Manrope,sans-serif;color:#d5f48e;margin:23px 0 5px}.result-body h3:first-child{margin-top:0}.result-body ul,.result-body ol{padding-left:21px;margin:6px 0}.result-body li{padding-left:3px;margin:4px 0}.result-body strong{color:#fff}.result-body p{margin:7px 0}.result-actions{display:flex;justify-content:flex-end;gap:8px;position:relative;z-index:1}.copy,.clearer{border:1px solid #53644f;border-radius:8px;color:#e3ebdc;background:transparent;font-size:11px;padding:7px 10px;display:none}.copy.show,.clearer.show{display:block}.copy:hover,.clearer:hover{background:#ffffff12}.clearer:disabled{opacity:.6;cursor:wait}.followup{display:none;position:relative;z-index:1;margin-top:22px;padding-top:18px;border-top:1px solid #ffffff20}.followup.show{display:block}.followup-title{font:600 12px Manrope,sans-serif;color:#d5f48e;margin-bottom:10px}.followup-thread{display:grid;gap:12px;margin-bottom:12px}.followup-question{font-size:12px;color:#fff;font-weight:600}.followup-answer{font-size:12px;line-height:1.65;color:#dfe5d9;margin-top:4px}.followup-answer h3{font:600 11px Manrope,sans-serif;color:#d5f48e;margin:7px 0 3px}.followup-answer p{margin:4px 0}.followup-answer ul{padding-left:18px;margin:4px 0}.followup-form{display:flex;gap:8px}.followup-form input[type=text]{flex:1;min-width:0;width:auto;background:#324738;border-color:#526550;color:#f8f6ec;font-size:12px;padding:10px 11px}.followup-form input::placeholder{color:#b2bcae}.followup-form button{border:0;border-radius:9px;background:var(--green);color:#263a2c;padding:0 13px;font:600 11px Manrope,sans-serif;white-space:nowrap}.followup-form button:disabled{opacity:.6;cursor:wait}.status{font:11px 'DM Mono',monospace;color:#f4c893;margin-top:11px;min-height:16px;text-align:center}
+    .below{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}.feature{padding:16px 18px;border-top:1px solid var(--line);display:flex;gap:12px}.feature-icon{font-size:17px}.feature strong{font:600 12px Manrope,sans-serif;display:block}.feature span{font-size:11px;color:var(--muted);line-height:1.5;display:block;margin-top:4px}.foot{border-top:1px solid var(--line);margin-top:39px;padding-top:17px;display:flex;justify-content:space-between;color:#898d83;font:10px 'DM Mono',monospace}
+    @media(max-width:800px){main{padding:40px 18px}.layout{grid-template-columns:1fr}.result-panel{min-height:390px}.empty{min-height:270px}.below{grid-template-columns:1fr;gap:0}.top{padding:0 18px}.top-note span:last-child{display:none}}
+    @media(max-width:460px){h1{letter-spacing:-2px}.panel{padding:18px}.controls{grid-template-columns:1fr}.drop{height:220px}.foot{gap:10px;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="brand"><span class="brand-icon">✳</span>pagewise</div><div class="top-note"><i class="dot"></i><span>POWERED BY GEMMA 4</span><span>·</span><span>YOUR VISUAL STUDY BUDDY</span></div></header>
+  <main>
+    <div class="eyebrow">A smarter way to study</div>
+    <h1>Make any page<br><em>make sense.</em></h1>
+    <p class="lede">Upload a photo or a PDF of your notes, a diagram, or a textbook. Pagewise turns what it reads into a clear explanation or a quick practice quiz.</p>
+    <section class="layout">
+      <div class="panel">
+        <div class="panel-head"><h2>Bring a page to life</h2><div class="panel-tools"><span class="step">01 / 02</span><button class="reset" id="reset" type="button" disabled>↻ New page</button></div></div>
+        <div class="drop" id="drop">
+          <input id="file" type="file" accept="image/png,image/jpeg,image/webp,image/heic,application/pdf,.pdf">
+          <div class="drop-content" id="dropContent"><div class="upload-icon">↑</div><strong>Drop a page or document here</strong><p>or <span>browse files</span> · Images or PDF, up to 14 MB</p></div>
+          <div class="preview" id="preview"><img id="previewImg" alt="Uploaded study material"><div class="pdf-preview"><div class="pdf-icon">PDF</div><strong id="pdfName"></strong><span>Document ready for Gemma 4</span></div><div class="file-pill" id="fileName"></div></div>
+        </div>
+        <div class="controls">
+          <div><span class="label">I WANT TO…</span><div class="segmented" id="modes"><button class="active" data-mode="explain">Understand it</button><button data-mode="quiz">Quiz me</button></div></div>
+          <div><label class="label" for="level">EXPLAIN IT FOR</label><select id="level"><option value="a curious beginner">A curious beginner</option><option value="a middle school student">Middle school</option><option value="a high school student">High school</option><option value="a university student">University</option></select></div>
+        </div>
+        <div class="question"><label class="label" for="extra">ANYTHING YOU’RE STUCK ON? <span style="color:#a3a69b">(OPTIONAL)</span></label><textarea id="extra" placeholder="e.g. I don't understand why the arrows point both ways…"></textarea></div>
+        <div class="keyrow"><input id="apiKey" type="password" placeholder="Paste your Gemini API key" autocomplete="off"><a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer">Get a free key ↗</a></div>
+        <button class="go" id="go"><span>Make this click</span><span class="arrow">↗</span></button>
+        <p class="privacy">Your key stays in this browser tab and is sent directly to Google’s Gemini API.</p>
+      </div>
+      <div class="panel result-panel">
+        <div class="result-head"><h2 id="resultTitle">Your lightbulb moment</h2><span class="gemma-tag">GEMMA 4 · MULTIMODAL</span></div>
+        <div class="result-body" id="result"><div class="empty"><div><div class="empty-art">☼</div><p>Upload an image or PDF and ask away. Your explanation or quiz will show up here.</p></div></div></div>
+        <div class="result-actions"><button class="clearer" id="clearer" type="button">✳ Explain more</button><button class="copy" id="copy">Copy notes</button></div>
+        <div class="followup" id="followup"><div class="followup-title">Have a follow-up question?</div><div class="followup-thread" id="followupThread"></div><div class="followup-form"><input id="followupInput" type="text" placeholder="Ask about this topic…"><button id="followupSend" type="button">Ask Gemma ↗</button></div></div>
+      </div>
+    </section>
+    <div class="status" id="status" aria-live="polite"></div>
+    <section class="below"><div class="feature"><span class="feature-icon">◉</span><div><strong>It sees the whole page</strong><span>Text, sketches, charts and diagrams, together.</span></div></div><div class="feature"><span class="feature-icon">✳</span><div><strong>Built around your learning</strong><span>Choose your level and ask about the confusing bit.</span></div></div><div class="feature"><span class="feature-icon">⌁</span><div><strong>Practice, not just read</strong><span>Generate a quick quiz to check what stuck.</span></div></div></section>
+    <footer class="foot"><span>PAGEWISE · BUILT FOR HACKTOBERFEST HACK DAY</span><span>GEMMA 4 VIA THE GEMINI API</span></footer>
+  </main>
+<script>
+  const $ = (s) => document.querySelector(s);
+  let selectedFile = null, mode = 'explain', outputText = '', followupHistory = [];
+  const fileInput = $('#file'), drop = $('#drop');
+  function setFile(file) {
+    if (!file) return;
+    const isPdf=file.type==='application/pdf'||file.name.toLowerCase().endsWith('.pdf');
+    const supportedImage=['image/png','image/jpeg','image/webp','image/heic'].includes(file.type);
+    if (!isPdf&&!supportedImage) { setStatus('Please choose a PNG, JPG, WEBP, HEIC or PDF file.'); return; }
+    if (file.size > 14 * 1024 * 1024) { setStatus('This file is over 14 MB. Choose a smaller image or PDF.'); return; }
+    selectedFile = file;
+    $('#preview').classList.toggle('pdf',isPdf);
+    if(isPdf){$('#pdfName').textContent=file.name;$('#previewImg').removeAttribute('src')}else{$('#previewImg').src = URL.createObjectURL(file)}
+    $('#fileName').textContent = file.name;
+    $('#preview').classList.add('show');
+    $('#dropContent').style.visibility = 'hidden';
+    $('#reset').disabled = false;
+    setStatus('');
+  }
+  fileInput.addEventListener('change', e => setFile(e.target.files[0]));
+  for (const ev of ['dragenter','dragover']) drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over')});
+  for (const ev of ['dragleave','drop']) drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over')});
+  drop.addEventListener('drop',e=>setFile(e.dataTransfer.files[0]));
+  $('#modes').addEventListener('click',e=>{const b=e.target.closest('button[data-mode]');if(!b)return;mode=b.dataset.mode;$('#modes').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));$('#go span:first-child').textContent=mode==='quiz'?'Build my quiz':'Make this click';$('#resultTitle').textContent=mode==='quiz'?'Your practice round':'Your lightbulb moment';});
+  function setStatus(s){$('#status').textContent=s}
+  function getMimeType(file){return file.type||(file.name.toLowerCase().endsWith('.pdf')?'application/pdf':'application/octet-stream')}
+  function toBase64(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result).split(',')[1]);r.onerror=reject;r.readAsDataURL(file)})}
+  function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function formatText(text){let html='', inList=false;for(const raw of text.split('\n')){const line=raw.trim();if(!line){if(inList){html+='</ul>';inList=false}continue}const heading=line.match(/^\*\*(.*?)\*\*:?$/);if(heading){if(inList){html+='</ul>';inList=false}html+=`<h3>${escapeHtml(heading[1])}</h3>`;continue}if(/^[-*•]\s/.test(line)){if(!inList){html+='<ul>';inList=true}html+=`<li>${escapeHtml(line.replace(/^[-*•]\s/,''))}</li>`;continue}if(inList){html+='</ul>';inList=false}html+=`<p>${escapeHtml(line).replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</p>`}if(inList)html+='</ul>';return html}
+  $('#go').addEventListener('click', async()=>{
+    const key=$('#apiKey').value.trim();
+    if(!selectedFile){setStatus('Add a photo of a page first.');return}
+    if(!key){setStatus('Paste a Gemini API key to get started.');$('#apiKey').focus();return}
+    const btn=$('#go');btn.disabled=true;btn.querySelector('span:first-child').textContent='Reading your page…';$('#copy').classList.remove('show');setStatus('Gemma 4 is looking at your page…');
+    try{
+      const extra=$('#extra').value.trim(), level=$('#level').value;
+      const materialName=selectedFile.type==='application/pdf'||selectedFile.name.toLowerCase().endsWith('.pdf')?'PDF document':'image';
+      const prompt=mode==='quiz'
+        ? `You are Pagewise, a warm, encouraging study buddy. Carefully inspect the uploaded study material (${materialName}), including its text, diagrams, charts, and tables. Make a short practice quiz based only on the material for ${level}. Give 4 questions of varied types, then put a clearly separated answer key at the end with brief explanations. If any content is unclear, say so instead of guessing. ${extra?`The learner is especially stuck on: ${extra}`:''} Use concise headings and plain language.`
+        : `You are Pagewise, a patient and thorough study tutor. Carefully inspect the uploaded study material (${materialName}), including its text, diagrams, charts, tables, and handwritten notes. The learner's level is ${level}. Give a proper teaching explanation, not just a short summary. ${extra?`First answer the learner's specific question directly: "${extra}". Then teach the topic behind it in enough depth to make the answer understandable.`:'Explain the main topic in the material thoroughly, starting from the central idea and building up the important details.'} Adapt the depth to the topic: cover what it is, how or why it works, and the logical steps or cause-and-effect connections when relevant. Introduce any needed background, define technical terms the first time they appear, and connect the explanation to the provided material. Use a concrete worked example or analogy when it helps. Do not artificially limit the explanation to a few bullets; use clear headings, short paragraphs, and step-by-step lists where useful. Finish with a concise takeaway and one check-your-understanding question with its answer. If any part is unclear, say what you cannot read. If the question goes beyond the provided material, answer using your general knowledge and make clear which part is additional context.`;
+      const base64=await toBase64(selectedFile);
+      const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemma-4-26b-a4b-it:generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:getMimeType(selectedFile),data:base64}}]}],generationConfig:{temperature:0.55,maxOutputTokens:2000}})});
+      const data=await res.json();
+      if(!res.ok)throw new Error(data.error?.message||`Gemini API returned ${res.status}`);
+      outputText=data.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('\n').trim();
+      if(!outputText)throw new Error('Gemma 4 returned an empty response. Please try again.');
+      $('#result').innerHTML=formatText(outputText);$('#copy').classList.add('show');$('#clearer').classList.toggle('show',mode==='explain');followupHistory=[];$('#followupThread').innerHTML='';$('#followup').classList.add('show');setStatus('Made with Gemma 4 · based on the page you shared');
+    }catch(err){setStatus(err.message.includes('API key')?'That API key did not work. Check it and try again.':err.message);}
+    finally{btn.disabled=false;btn.querySelector('span:first-child').textContent=mode==='quiz'?'Build my quiz':'Make this click'}
+  });
+  $('#copy').addEventListener('click',async()=>{if(!outputText)return;try{await navigator.clipboard.writeText(outputText);setStatus('Copied to clipboard.')}catch{setStatus('Could not access clipboard in this browser.')}});
+  $('#reset').addEventListener('click',()=>{
+    if(!selectedFile)return;
+    selectedFile=null;
+    fileInput.value='';
+    $('#previewImg').removeAttribute('src');
+    $('#preview').classList.remove('pdf');
+    $('#preview').classList.remove('show');
+    $('#dropContent').style.visibility='visible';
+    $('#extra').value='';
+    $('#level').value='a curious beginner';
+    mode='explain';
+    $('#modes').querySelectorAll('button').forEach(button=>button.classList.toggle('active',button.dataset.mode==='explain'));
+    $('#go span:first-child').textContent='Make this click';
+    $('#resultTitle').textContent='Your lightbulb moment';
+    $('#result').innerHTML='<div class="empty"><div><div class="empty-art">☼</div><p>Upload an image or PDF and ask away. Your explanation or quiz will show up here.</p></div></div>';
+    $('#copy').classList.remove('show');
+    $('#clearer').classList.remove('show');
+    $('#followup').classList.remove('show');
+    $('#followupThread').innerHTML='';
+    $('#followupInput').value='';
+    followupHistory=[];
+    $('#reset').disabled=true;
+    outputText='';
+    setStatus('Ready for another page.');
+  });
+  $('#clearer').addEventListener('click',async()=>{
+    const key=$('#apiKey').value.trim();
+    if(!selectedFile||!key||!outputText)return;
+    const button=$('#clearer');button.disabled=true;button.textContent='Adding detail…';setStatus('Gemma 4 is building a fuller explanation…');
+    try{
+      const base64=await toBase64(selectedFile);
+      const prompt=`The learner clicked Explain more because they want substantially more depth than the explanation below. Write a NEW supplementary section for ${$('#level').value}. Do not restate, summarize, or paraphrase any information already covered. Add genuinely new useful detail about the topic: include relevant background or foundations, explain a mechanism or line of reasoning step by step where appropriate, and add a fresh worked example, application, comparison, or common misconception as relevant. Choose the parts that fit this particular topic; avoid padding or generic advice. Keep it accurate and easy to follow. Use headings and short paragraphs. Use the uploaded study material as context, but when additional background is needed, clearly distinguish it from what the material explicitly says. If the topic is simple, still add a different concrete example or useful implication rather than repeating the first answer. Return only the new material to append.\n\nExplanation already shown (avoid repeating it):\n${outputText}`;
+      const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemma-4-26b-a4b-it:generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:getMimeType(selectedFile),data:base64}}]}],generationConfig:{temperature:0.4,maxOutputTokens:2000}})});
+      const data=await res.json();
+      if(!res.ok)throw new Error(data.error?.message||`Gemini API returned ${res.status}`);
+      const extraDetail=data.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('\n').trim();
+      if(!extraDetail)throw new Error('Gemma 4 returned an empty response. Please try again.');
+      outputText=`${outputText}\n\n**More detail**\n\n${extraDetail}`;$('#result').innerHTML=formatText(outputText);setStatus('Added new detail with Gemma 4 · original explanation kept');
+    }catch(err){setStatus(err.message)}
+    finally{button.disabled=false;button.textContent='✳ Explain more'}
+  });
+  async function askFollowup(){
+    const key=$('#apiKey').value.trim(), question=$('#followupInput').value.trim();
+    if(!selectedFile||!key||!question)return;
+    const button=$('#followupSend');button.disabled=true;button.textContent='Thinking…';setStatus('Gemma 4 is answering your follow-up…');
+    try{
+      const base64=await toBase64(selectedFile);
+      const history=followupHistory.map(turn=>`Learner: ${turn.question}\nTutor: ${turn.answer}`).join('\n\n');
+      const prompt=`You are Pagewise, a clear and concise tutor. Answer ONLY the learner's latest question below. Give a short explanation focused on that question (usually 2–4 sentences; use a few more only if needed for accuracy). Do not repeat or summarize the full page explanation, do not answer earlier questions again, and do not add unrelated facts, sections, quizzes, or a new question. Use the uploaded study material and the conversation only as context to understand what the learner means. If a small definition or example is necessary to answer this question, include it briefly. If the answer is beyond the material, answer from general knowledge and label that as additional context.\n\nPage explanation for context only:\n${outputText}\n\nEarlier follow-ups for context only:\n${history||'(None)'}\n\nAnswer only this latest question:\n${question}`;
+      const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemma-4-26b-a4b-it:generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:getMimeType(selectedFile),data:base64}}]}],generationConfig:{temperature:0.35,maxOutputTokens:700}})});
+      const data=await res.json();
+      if(!res.ok)throw new Error(data.error?.message||`Gemini API returned ${res.status}`);
+      const answer=data.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('\n').trim();
+      if(!answer)throw new Error('Gemma 4 returned an empty response. Please try again.');
+      followupHistory.push({question,answer});
+      const turn=document.createElement('div');turn.innerHTML=`<div class="followup-question">You asked: ${escapeHtml(question)}</div><div class="followup-answer">${formatText(answer)}</div>`;
+      $('#followupThread').append(turn);$('#followupInput').value='';setStatus('Answered with Gemma 4 · using the same page context');
+    }catch(err){setStatus(err.message)}
+    finally{button.disabled=false;button.textContent='Ask Gemma ↗'}
+  }
+  $('#followupSend').addEventListener('click',askFollowup);
+  $('#followupInput').addEventListener('keydown',event=>{if(event.key==='Enter')askFollowup()});
+</script>
+</body>
+</html>
